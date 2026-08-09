@@ -15,7 +15,7 @@ type Ball = {
   squashAngle: number; // radians, axis of the last impact
 };
 
-const BASE_RADII = [160,160,160,220,220];
+const BASE_RADII = [260,260,260,150,150];
 
 // Physics tuning
 const GRAVITY = 0.18;
