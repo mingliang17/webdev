@@ -1,19 +1,81 @@
-import Link from "next/link";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Coffee",
-  description:
-    "Soft peach flesh rounded out with a whisper of rose. Fully independent page for Bubble 2.",
-};
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
 
 export default function BubbleTwoPage() {
+  const [isOpen, setIsOpen] = useState(true);
+  const [isExiting, setIsExiting] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true; // Required by browsers for autoplay compliance
+      videoRef.current.play().catch((err) => {
+        console.log("Autoplay prevented:", err);
+      });
+    }
+  }, []);
+
+  const handleClose = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 300); // Matches the 300ms transition duration
+  };
+
+  const handleVideoEnd = () => {
+    handleClose();
+  };
+
   return (
-    <main className="min-h-screen bg-[#140F13] text-[#FBF1DE] antialiased selection:bg-[#FF4E86] selection:text-white">
+    <main className="min-h-screen bg-[#140F13] text-[#FBF1DE] antialiased selection:bg-[#FF4E86] selection:text-white relative">
+      {/* =========================================================================
+          LARGE AUTO-PLAYING VIDEO POP-OUT MODAL WITH FADE-OUT ANIMATION
+          ========================================================================= */}
+      {isOpen && (
+        <div
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-lg p-4 sm:p-8 transition-opacity duration-300 ease-out ${
+            isExiting ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div
+            className={`relative w-full max-w-5xl bg-[#1A1117] rounded-3xl overflow-hidden border border-white/25 shadow-2xl transition-all duration-300 ease-out ${
+              isExiting ? "scale-95 opacity-0" : "scale-100 opacity-100"
+            }`}
+          >
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black text-white rounded-full w-9 h-9 flex items-center justify-center text-xs font-mono transition-colors"
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              controls
+              onEnded={handleVideoEnd}
+              className="w-full aspect-video object-cover max-h-[80vh]"
+              poster="/images/bubbles/bubble_2.png"
+            >
+              <source src="/video/coffee/coffee.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="p-4 bg-[#140F13] flex items-center justify-between border-t border-white/10">
+              <span className="text-xs font-mono text-[#FF8F6B]">● LIVE BATCH 02 INITIAL PREVIEW</span>
+              <span className="text-xs font-mono text-[#FBF1DE]/60">Closing automatically when finished</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* =========================================================================
           TOP NAVIGATION BAR
           ========================================================================= */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#140F13]/80 border-b border-white/10 px-6 py-4">
+      <header className="sticky top-0 z-40 backdrop-blur-md bg-[#140F13]/80 border-b border-white/10 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
             href="/"
@@ -57,200 +119,138 @@ export default function BubbleTwoPage() {
       </header>
 
       {/* =========================================================================
-          HERO & MEDIA SHOWCASE
+          TOP HALF: 2 Images on Left | Title, Description, & Price on Right
           ========================================================================= */}
-      <section className="max-w-6xl mx-auto px-6 pt-12 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-
-          {/* Left Column: Visual Media Container */}
-          <div className="lg:col-span-7 space-y-6">
-
-            {/* Main Showcase Image */}
-            <div className="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-neutral-900 to-[#22131C] border border-white/15 shadow-2xl">
+      <section className="max-w-6xl mx-auto px-6 pt-16 pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Side: 2 Different Images */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-4">
+            <div className="group relative rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/15 shadow-xl">
               <img
                 src="/images/bubbles/bubble_2.png"
-                alt="Bubble 2: Rose Peach Wave"
+                alt="Bubble 2 Primary View"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#140F13]/85 via-transparent to-transparent opacity-60" />
-
-              {/* Floating Badge */}
-              <div className="absolute top-5 left-5 bg-[#140F13]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-xs font-mono tracking-wider text-[#FFD3B8]">
-                ● BATCH 02 / FLORAL INFUSION
-              </div>
-
-              <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end">
-                <div>
-                  <p className="text-xs font-mono uppercase text-[#FBF1DE]/60">Custom Media Slot</p>
-                  <p className="text-sm font-semibold text-[#FBF1DE]">Botanical Still Life Showcase</p>
-                </div>
-                <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#FF4E86]/20 text-[#FF4E86] border border-[#FF4E86]/30">
-                  Customizable
-                </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#140F13]/80 via-transparent to-transparent opacity-60" />
+              <div className="absolute bottom-3 left-3 text-[10px] font-mono tracking-wider bg-[#140F13]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15 text-[#FFD3B8]">
+                View 01
               </div>
             </div>
 
-            {/* Placeholder Video Player */}
-            <div className="relative rounded-2xl overflow-hidden aspect-video bg-[#1A1117] border border-white/10 shadow-lg group flex items-center justify-center">
-              <video
-                controls
-                className="w-full h-full object-cover"
-                poster="/images/bubbles/bubble_2.png"
-              >
-                <source src="/video/coffee/coffee.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div className="absolute top-4 left-4 pointer-events-none bg-[#140F13]/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] font-mono tracking-wider text-[#FF8F6B]">
-                VIDEO PREVIEW
+            <div className="group relative rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/15 shadow-xl mt-8">
+              <img
+                src="/images/bubbles/bubble_2.png"
+                alt="Bubble 2 Secondary Angle"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter saturate-125"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#140F13]/80 via-transparent to-transparent opacity-60" />
+              <div className="absolute bottom-3 left-3 text-[10px] font-mono tracking-wider bg-[#140F13]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15 text-[#FF4E86]">
+                View 02
               </div>
-            </div>
-
-            {/* Secondary Media / Tasting Quote Block */}
-            <div className="rounded-2xl p-6 bg-white/[0.03] border border-white/10 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <h4 className="font-display text-lg text-[#FBF1DE]">Botanical Infusion Notes</h4>
-                <p className="text-sm text-[#FBF1DE]/60 mt-0.5">
-                  Steeped with Damascus rose petals and white peach flesh for an iced-tea smoothness.
-                </p>
-              </div>
-              <button className="shrink-0 px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full bg-white/10 hover:bg-white/20 text-[#FBF1DE] transition-colors border border-white/15">
-                Lab Profile ↗
-              </button>
             </div>
           </div>
 
-          {/* Right Column: Editorial Copy, Pricing, & Customization Guide */}
-          <div className="lg:col-span-5 space-y-8">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF4E86]/15 border border-[#FF4E86]/30 text-[#FF4E86] text-xs font-mono uppercase tracking-widest mb-4">
-                Bubble Page #02
-              </div>
-              <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#FBF1DE] leading-[1.05]">
-                Goji Garden Coffee \n 枸杞花园咖啡
-              </h1>
-              <p className="text-2xl font-mono text-[#FF8F6B] mt-3">
-                $44.00 <span className="text-xs text-[#FBF1DE]/50 font-normal">/ 6-Pack Cans</span>
-              </p>
+          {/* Right Side: Title, Description, Price */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF4E86]/15 border border-[#FF4E86]/30 text-[#FF4E86] text-xs font-mono uppercase tracking-widest">
+              Top Half Showcase
             </div>
+            
+            <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#FBF1DE] leading-[1.05]">
+              Goji Garden Coffee <br /> 枸杞花园咖啡
+            </h1>
 
-            <p className="text-lg text-[#FBF1DE]/80 leading-relaxed font-light">
-              AS Placeholder Text to change
+            <p className="text-3xl font-mono text-[#FF8F6B]">
+              $44.00 <span className="text-xs text-[#FBF1DE]/50 font-normal">/ 6-Pack Cans</span>
             </p>
 
-            {/* Developer Customization Hint */}
-            <div className="p-4 rounded-xl bg-[#FF4E86]/10 border border-[#FF4E86]/20 text-xs font-mono text-[#FBF1DE]/80 space-y-1">
-              <span className="text-[#FF4E86] font-bold block">💡 Developer Note:</span>
-              <p>
-                This is a fully independent page located at <code className="text-white bg-black/40 px-1 py-0.5 rounded">app/bubble/2/page.tsx</code>. You can customize the layout, text, pictures, or animations here without affecting any other bubble.
-              </p>
-            </div>
+            <p className="text-lg text-[#FBF1DE]/80 leading-relaxed font-light">
+              Soft peach flesh rounded out with a whisper of rose. Fully independent formulation designed to nourish vitality and elevate your daily ceremony with smooth botanical notes.
+            </p>
 
-            {/* Flavor Tasting Radar */}
-            <div className="border-t border-white/10 pt-6 space-y-3">
-              <h3 className="text-xs font-mono uppercase tracking-widest text-[#FBF1DE]/50">
-                Sensory Profile
-              </h3>
-              <div className="space-y-2">
-                {[
-                  { label: "Floral Aromatics", val: "94%" },
-                  { label: "Silky Peach Body", val: "88%" },
-                  { label: "Gentle Effervescence", val: "65%" },
-                  { label: "Tartness", val: "32%" },
-                ].map((stat, i) => (
-                  <div key={i} className="text-xs font-mono flex items-center justify-between">
-                    <span className="text-[#FBF1DE]/70">{stat.label}</span>
-                    <div className="flex items-center gap-3">
-                      <div className="w-28 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-[#FFD3B8] to-[#FF4E86]"
-                          style={{ width: stat.val }}
-                        />
-                      </div>
-                      <span className="text-[#FF8F6B] w-8 text-right">{stat.val}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Key Botanical Highlights */}
-            <div className="border-t border-white/10 pt-6 space-y-3">
-              <h3 className="text-xs font-mono uppercase tracking-widest text-[#FBF1DE]/50">
-                Key Highlights
-              </h3>
-              <ul className="space-y-2 text-sm text-[#FBF1DE]/80">
-                <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4E86]" />
-                  Steam-distilled Damascus rosewater extract
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4E86]" />
-                  Tree-ripened organic white peach puree
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4E86]" />
-                  Naturally alkaline mountain spring base
-                </li>
-              </ul>
-            </div>
-
-            {/* Actions */}
-            <div className="pt-2 flex flex-col sm:flex-row gap-3">
-              <button className="flex-1 py-3.5 px-6 rounded-full bg-[#FF4E86] hover:bg-[#ff5d92] text-white font-semibold text-sm transition-all shadow-lg shadow-[#FF4E86]/25">
-                Acquire Batch 02
-              </button>
-              <Link
-                href="/bubble/3"
-                className="py-3.5 px-6 rounded-full bg-white/10 hover:bg-white/15 text-[#FBF1DE] font-semibold text-sm transition-all border border-white/15 text-center"
+            <div className="pt-2 flex gap-4">
+              <button 
+                onClick={() => {
+                  setIsExiting(false);
+                  setIsOpen(true);
+                  if (videoRef.current) {
+                    videoRef.current.currentTime = 0;
+                    videoRef.current.play().catch(() => {});
+                  }
+                }}
+                className="py-3 px-6 rounded-full bg-[#FF4E86] hover:bg-[#ff5d92] text-white font-semibold text-sm transition-all shadow-lg shadow-[#FF4E86]/25"
               >
-                Next: Bubble 03 →
-              </Link>
+                Replay Pop-out Video
+              </button>
             </div>
           </div>
+
         </div>
       </section>
 
       {/* =========================================================================
-          EDITORIAL NARRATIVE SECTION
+          BOTTOM HALF: Title, Description, & Price on Left | 2 Images on Right
           ========================================================================= */}
-      <section className="border-t border-white/10 bg-white/[0.02] py-20 px-6">
-        <div className="max-w-4xl mx-auto space-y-12">
-          <div className="text-center space-y-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#FF4E86]">
-              Floral Alchemy
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl text-[#FBF1DE]">
-              The Poetry of Solstice 02
-            </h2>
-            <p className="text-[#FBF1DE]/60 max-w-xl mx-auto text-sm leading-relaxed">
-              Balancing the intense fragrance of freshly picked roses against the sweet tang of ripe white peach.
-            </p>
-          </div>
+      <section className="border-t border-white/10 bg-white/[0.02] py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-              <div className="text-xl font-mono text-[#FFD3B8]">01 / Petals</div>
-              <h3 className="font-display text-lg text-[#FBF1DE]">Damascus Rose Harvest</h3>
-              <p className="text-xs text-[#FBF1DE]/70 leading-relaxed">
-                Picked before sunrise while morning dew retains the delicate floral aromatic compounds.
+            {/* Left Side: Title, Description, Price */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF8F6B]/15 border border-[#FF8F6B]/30 text-[#FF8F6B] text-xs font-mono uppercase tracking-widest">
+                Bottom Half Showcase
+              </div>
+
+              <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#FBF1DE] leading-[1.05]">
+                Botanical Alchemy <br /> 玫瑰蜜桃风味
+              </h2>
+
+              <p className="text-3xl font-mono text-[#FFD3B8]">
+                $44.00 <span className="text-xs text-[#FBF1DE]/50 font-normal">/ 6-Pack Cans</span>
               </p>
+
+              <p className="text-lg text-[#FBF1DE]/80 leading-relaxed font-light">
+                Balanced with the intense fragrance of freshly picked Damascus roses against the sweet tang of organic white peach. Never heat-treated to preserve living biological benefits.
+              </p>
+
+              <div className="pt-2">
+                <Link
+                  href="/bubble/3"
+                  className="inline-block py-3 px-6 rounded-full bg-white/10 hover:bg-white/15 text-[#FBF1DE] font-semibold text-sm transition-all border border-white/15"
+                >
+                  Next: Bubble 03 →
+                </Link>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-              <div className="text-xl font-mono text-[#FF4E86]">02 / Puree</div>
-              <h3 className="font-display text-lg text-[#FBF1DE]">Cold-Pressed Peach</h3>
-              <p className="text-xs text-[#FBF1DE]/70 leading-relaxed">
-                Never heat-treated. The delicate stone fruit sugars feed the living cultures directly.
-              </p>
+            {/* Right Side: 2 Different Images (Flipped Order) */}
+            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
+              <div className="group relative rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/15 shadow-xl mt-8">
+                <img
+                  src="/images/bubbles/bubble_2.png"
+                  alt="Detail Angle 01"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#140F13]/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute bottom-3 left-3 text-[10px] font-mono tracking-wider bg-[#140F13]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15 text-[#FFD3B8]">
+                  Detail 01
+                </div>
+              </div>
+
+              <div className="group relative rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/15 shadow-xl">
+                <img
+                  src="/images/bubbles/bubble_2.png"
+                  alt="Detail Angle 02"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#140F13]/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute bottom-3 left-3 text-[10px] font-mono tracking-wider bg-[#140F13]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15 text-[#FF4E86]">
+                  Detail 02
+                </div>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-              <div className="text-xl font-mono text-[#FF8F6B]">03 / Texture</div>
-              <h3 className="font-display text-lg text-[#FBF1DE]">Velvet Mouthfeel</h3>
-              <p className="text-xs text-[#FBF1DE]/70 leading-relaxed">
-                Infused with micro-bubbles that dissolve softly on the palate without sharpness.
-              </p>
-            </div>
           </div>
         </div>
       </section>
