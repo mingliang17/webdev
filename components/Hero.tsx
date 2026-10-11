@@ -327,7 +327,7 @@ export default function Hero() {
                 className="absolute top-0 left-0 will-change-transform"
               >
                 <Link
-                  href={`/bubble/${bubble.id}`}
+                  href={bubble.href || `/bubble/${bubble.id}`}
                   className="bubble"
                   aria-label={`Open ${bubble.title}`}
                 >
