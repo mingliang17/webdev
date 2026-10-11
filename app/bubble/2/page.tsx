@@ -126,7 +126,7 @@ export default function BubbleTwoPage() {
                 Bubble Page #02
               </div>
               <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#FBF1DE] leading-[1.05]">
-                Rose Peach Wave
+                Goji Garden Coffee \n 枸杞花园咖啡
               </h1>
               <p className="text-2xl font-mono text-[#FF8F6B] mt-3">
                 $44.00 <span className="text-xs text-[#FBF1DE]/50 font-normal">/ 6-Pack Cans</span>
@@ -134,7 +134,7 @@ export default function BubbleTwoPage() {
             </div>
 
             <p className="text-lg text-[#FBF1DE]/80 leading-relaxed font-light">
-              Soft peach flesh rounded out with a whisper of rose. Reads like an artisanal iced tea, drinks with an airy, effortless effervescence.
+              AS Placeholder Text to change
             </p>
 
             {/* Developer Customization Hint */}

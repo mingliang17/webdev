@@ -26,38 +26,105 @@
   --animate-pulse-dot: pulseDot 2.4s ease-in-out infinite;
 
   @keyframes drift {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -40px) scale(1.08); }
-    66% { transform: translate(-25px, 25px) scale(0.96); }
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(30px, -40px) scale(1.08);
+    }
+
+    66% {
+      transform: translate(-25px, 25px) scale(0.96);
+    }
   }
+
   @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-16px) rotate(2deg); }
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+      transform: translateY(-16px) rotate(2deg);
+    }
   }
+
   @keyframes floatY {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-18px) rotate(3deg); }
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+      transform: translateY(-18px) rotate(3deg);
+    }
   }
+
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
   }
+
   @keyframes riseIn {
-    from { opacity: 0; transform: translateY(22px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
   @keyframes pulseDot {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.5); opacity: .5; }
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.5);
+      opacity: .5;
+    }
   }
+
   @keyframes scrollLine {
-    0% { top: -100%; }
-    50% { top: 0%; }
-    100% { top: 100%; }
+    0% {
+      top: -100%;
+    }
+
+    50% {
+      top: 0%;
+    }
+
+    100% {
+      top: 100%;
+    }
   }
+
   @keyframes fadeSwap {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -72,7 +139,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .font-display {
+h1,
+h2,
+h3,
+.font-display {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -99,6 +169,7 @@ h1, h2, h3, .font-display {
     inset 10px 0 16px rgb(255 255 255 / 0.28),
     0 24px 34px -12px rgb(18 33 27 / 0.35);
 }
+
 .can-shape::before {
   content: "";
   position: absolute;
@@ -110,6 +181,7 @@ h1, h2, h3, .font-display {
   background: linear-gradient(180deg, #fff8, var(--c1));
   box-shadow: 0 2px 5px rgb(0 0 0 / 0.15);
 }
+
 .can-shape::after {
   content: "";
   position: absolute;
@@ -127,6 +199,7 @@ h1, h2, h3, .font-display {
   transform: translateY(40px) scale(0.96);
   transition: opacity 0.9s var(--ease-brand), transform 0.9s var(--ease-brand);
 }
+
 .animate-in.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -135,6 +208,7 @@ h1, h2, h3, .font-display {
 [data-step].animate-in {
   transform: translateY(24px) scale(1);
 }
+
 [data-step].animate-in.is-visible {
   transform: translateY(0) scale(1);
 }
@@ -152,32 +226,34 @@ h1, h2, h3, .font-display {
   border-radius: 50%;
   cursor: pointer;
 }
+
 .bubble-glow {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    var(--color-citrus),
-    var(--color-guava),
-    var(--color-lime),
-    var(--color-sun),
-    var(--color-citrus)
-  );
+  background: conic-gradient(from 0deg,
+      var(--color-citrus),
+      var(--color-guava),
+      var(--color-lime),
+      var(--color-sun),
+      var(--color-citrus));
   opacity: 0;
   filter: blur(3px);
   transition: opacity 0.45s var(--ease-brand);
   animation: bubbleSpin 3.2s linear infinite;
 }
+
 .bubble:hover .bubble-glow,
 .bubble:focus-visible .bubble-glow {
   opacity: 1;
 }
+
 @keyframes bubbleSpin {
   to {
     transform: rotate(360deg);
   }
 }
+
 .bubble-face {
   position: absolute;
   inset: 0;
@@ -188,6 +264,7 @@ h1, h2, h3, .font-display {
     inset 0 0 0 2px rgb(251 241 222 / 0.25),
     0 18px 30px -10px rgb(18 33 27 / 0.4);
 }
+
 .bubble-image {
   position: absolute;
   inset: 0;
@@ -196,28 +273,51 @@ h1, h2, h3, .font-display {
   object-fit: cover;
   transition: opacity 0.45s var(--ease-brand), transform 0.6s var(--ease-brand);
 }
+
 .bubble:hover .bubble-image,
 .bubble:focus-visible .bubble-image {
-  opacity: 0;
+  /* Keep the image visible at 50% opacity so it peeks through the text overlay */
+  opacity: 0.5;
   transform: scale(1.08);
 }
-.bubble-title {
+
+/* Bouncy hero bubbles container for text */
+.bubble-content {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 0 14%;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(14px, 1.3vw + 8px, 20px);
-  color: var(--color-cream);
-  background: linear-gradient(160deg, var(--color-ink), var(--color-ink-2));
+  /* 50% transparent dark gradient overlay */
+  background: linear-gradient(160deg, rgb(18 33 27 / 0.5), rgb(27 49 40 / 0.5));
   opacity: 0;
   transition: opacity 0.45s var(--ease-brand);
 }
-.bubble:hover .bubble-title,
-.bubble:focus-visible .bubble-title {
+
+.bubble:hover .bubble-content,
+.bubble:focus-visible .bubble-content {
   opacity: 1;
+}
+
+.bubble-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(32px, 1.3vw + 8px, 48px);
+  color: var(--color-cream);
+  line-height: 1.2;
+  text-shadow: 0 0 12px rgb(251 241 222 / 0.7), 0 0 24px var(--color-sun);
+}
+
+.bubble-subtitle {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(16px, 0.9vw + 4px, 22px);
+  color: var(--color-cream);
+  opacity: 0.95;
+  margin-top: 4px;
+  text-shadow: 0 0 10px rgb(251 241 222 / 0.6);
+  white-space: pre-line;
 }

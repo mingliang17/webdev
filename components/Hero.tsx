@@ -15,7 +15,7 @@ type Ball = {
   squashAngle: number; // radians, axis of the last impact
 };
 
-const BASE_RADII = [260,260,260,150,150];
+const BASE_RADII = [260, 260, 260, 150, 150];
 
 // Physics tuning
 const GRAVITY = 0.18;
@@ -334,7 +334,18 @@ export default function Hero() {
                   <span className="bubble-glow" aria-hidden="true" />
                   <span className="bubble-face">
                     <img src={bubble.image} alt="" className="bubble-image" />
-                    <span className="bubble-title">{bubble.title}</span>
+                    <span className="bubble-content">
+                      <span className="bubble-title">{bubble.title}</span>
+                      {bubble.subtitle && (
+                        <span className="bubble-subtitle">
+                          {bubble.subtitle.split('\n').map((line, idx) => (
+                            <span key={idx} className="block">
+                              {line.trim()}
+                            </span>
+                          ))}
+                        </span>
+                      )}
+                    </span>
                   </span>
                 </Link>
               </div>
