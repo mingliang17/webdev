@@ -318,7 +318,7 @@ export default function Hero() {
             </div>
 
           </div>
-          s
+
           <div ref={stageRef} className="relative flex-1 min-h-0">
             {bubbles.map((bubble, i) => (
               <div
