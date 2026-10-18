@@ -88,7 +88,7 @@ export default function BubbleTwoPage() {
           {/* Quick Bubble Page Switcher */}
           <nav className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full p-1 text-xs font-mono">
             <Link
-              href="/bubble/1"
+              href="/pages/1"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               01
@@ -97,19 +97,19 @@ export default function BubbleTwoPage() {
               02
             </span>
             <Link
-              href="/bubble/3"
+              href="/pages/3"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               03
             </Link>
             <Link
-              href="/bubble/4"
+              href="/pages/4"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               04
             </Link>
             <Link
-              href="/bubble/5"
+              href="/pages/5"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               05
@@ -216,7 +216,7 @@ export default function BubbleTwoPage() {
 
               <div className="pt-2">
                 <Link
-                  href="/bubble/3"
+                  href="/pages/3"
                   className="inline-block py-3 px-6 rounded-full bg-white/10 hover:bg-white/15 text-[#FBF1DE] font-semibold text-sm transition-all border border-white/15"
                 >
                   Next: Bubble 03 →
@@ -261,14 +261,14 @@ export default function BubbleTwoPage() {
       <footer className="border-t border-white/10 py-12 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
-            href="/bubble/1"
+            href="/pages/1"
             className="group flex items-center gap-2 text-xs font-mono text-[#FBF1DE]/70 hover:text-white"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
             Previous: Bubble 1 (Citrus Bloom)
           </Link>
           <Link
-            href="/bubble/3"
+            href="/pages/3"
             className="group flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-mono text-[#FBF1DE] transition-all"
           >
             <span>Jump to Bubble 3: Dragon Bloom Tropical</span>

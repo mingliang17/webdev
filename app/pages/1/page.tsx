@@ -2,22 +2,22 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bubble 4: Watermelon Fizz | Solstice Craft Ferments",
+  title: "Bubble 1: Citrus Bloom Elixir | Solstice Craft Ferments",
   description:
-    "Juicy summer watermelon with crisp lime sparkle and revitalizing minerals. Fully independent page for Bubble 4.",
+    "Bright lemon and cold-pressed yuzu peel over a crisp, tart living base. Fully independent page for Bubble 1.",
 };
 
-export default function BubbleFourPage() {
+export default function BubbleOnePage() {
   return (
-    <main className="min-h-screen bg-[#0D1814] text-[#FBF1DE] antialiased selection:bg-[#FF4E6E] selection:text-white">
+    <main className="min-h-screen bg-[#0E1713] text-[#FBF1DE] antialiased selection:bg-[#FF6B35] selection:text-[#0E1713]">
       {/* =========================================================================
           TOP NAVIGATION BAR
           ========================================================================= */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0D1814]/80 border-b border-white/10 px-6 py-4">
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0E1713]/80 border-b border-white/10 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-[#FBF1DE]/70 hover:text-[#FF4E6E] transition-colors"
+            className="group inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-[#FBF1DE]/70 hover:text-[#FF6B35] transition-colors"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
             Back to Solstice
@@ -25,29 +25,29 @@ export default function BubbleFourPage() {
 
           {/* Quick Bubble Page Switcher */}
           <nav className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full p-1 text-xs font-mono">
-            <Link
-              href="/bubble/1"
-              className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
-            >
+            <span className="px-3 py-1 rounded-full bg-[#FF6B35] text-[#0E1713] font-bold shadow-sm">
               01
-            </Link>
+            </span>
             <Link
-              href="/bubble/2"
+              href="/pages/2"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               02
             </Link>
             <Link
-              href="/bubble/3"
+              href="/pages/3"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               03
             </Link>
-            <span className="px-3 py-1 rounded-full bg-[#FF4E6E] text-white font-bold shadow-sm">
-              04
-            </span>
             <Link
-              href="/bubble/5"
+              href="/pages/4"
+              className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
+            >
+              04
+            </Link>
+            <Link
+              href="/pages/5"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               05
@@ -62,42 +62,42 @@ export default function BubbleFourPage() {
       <section className="max-w-6xl mx-auto px-6 pt-12 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Visual Media Container */}
+          {/* Left Column: Visual Media Container (Ready for custom photo/video) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-neutral-900 to-[#1B2922] border border-white/15 shadow-2xl">
+            <div className="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-neutral-900 to-[#182620] border border-white/15 shadow-2xl">
               <img
-                src="/images/bubbles/bubble_4.png"
-                alt="Bubble 4: Watermelon Fizz"
+                src="/images/bubbles/bubble_1.png"
+                alt="Bubble 1: Citrus Bloom Elixir"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0D1814]/85 via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E1713]/80 via-transparent to-transparent opacity-60" />
               
               {/* Floating Badge */}
-              <div className="absolute top-5 left-5 bg-[#0D1814]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-xs font-mono tracking-wider text-[#4FCB8F]">
-                ● BATCH 04 / SUMMER CRISP
+              <div className="absolute top-5 left-5 bg-[#0E1713]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-xs font-mono tracking-wider text-[#FFC94D]">
+                ● BATCH 01 / LIMITED RESERVE
               </div>
 
               <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end">
                 <div>
                   <p className="text-xs font-mono uppercase text-[#FBF1DE]/60">Custom Media Slot</p>
-                  <p className="text-sm font-semibold text-[#FBF1DE]">Crisp Watermelon Fizz Photography</p>
+                  <p className="text-sm font-semibold text-[#FBF1DE]">Primary Visual Showcase</p>
                 </div>
-                <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#FF4E6E]/20 text-[#FF4E6E] border border-[#FF4E6E]/30">
+                <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#FF6B35]/20 text-[#FF6B35] border border-[#FF6B35]/30">
                   Customizable
                 </span>
               </div>
             </div>
 
-            {/* Secondary Media / Mineral Specs Card */}
+            {/* Secondary Media / Video Placeholder Card */}
             <div className="rounded-2xl p-6 bg-white/[0.03] border border-white/10 backdrop-blur-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <h4 className="font-display text-lg text-[#FBF1DE]">Hydration Electrolytes & Mineral Salt</h4>
+                <h4 className="font-display text-lg text-[#FBF1DE]">Video & Interactive Asset Slot</h4>
                 <p className="text-sm text-[#FBF1DE]/60 mt-0.5">
-                  Natural potassium and cold-extracted melon juice designed for effortless hydration.
+                  Embed product 3D canvas, video reels, or laboratory fermentation analysis here.
                 </p>
               </div>
               <button className="shrink-0 px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full bg-white/10 hover:bg-white/20 text-[#FBF1DE] transition-colors border border-white/15">
-                View Electrolytes ↗
+                Play Reel ↗
               </button>
             </div>
           </div>
@@ -105,26 +105,27 @@ export default function BubbleFourPage() {
           {/* Right Column: Editorial Copy, Pricing, & Customization Guide */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF4E6E]/15 border border-[#FF4E6E]/30 text-[#FF4E6E] text-xs font-mono uppercase tracking-widest mb-4">
-                Bubble Page #04
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF6B35]/15 border border-[#FF6B35]/30 text-[#FF6B35] text-xs font-mono uppercase tracking-widest mb-4">
+                Bubble Page #01
               </div>
               <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#FBF1DE] leading-[1.05]">
-                Watermelon Fizz
+                Citrus Bloom Elixir
               </h1>
-              <p className="text-2xl font-mono text-[#4FCB8F] mt-3">
-                $42.00 <span className="text-xs text-[#FBF1DE]/50 font-normal">/ 6-Pack Cans</span>
+              <p className="text-2xl font-mono text-[#FFC94D] mt-3">
+                $48.00 <span className="text-xs text-[#FBF1DE]/50 font-normal">/ 6-Pack Cans</span>
               </p>
             </div>
 
             <p className="text-lg text-[#FBF1DE]/80 leading-relaxed font-light">
-              Juicy watermelon, barely-there residual sweetness, and an effervescent champagne fizz that does all the refreshing heavy lifting.
+              Bright lemon and cold-pressed yuzu peel suspended over a crisp, tart living base.
+              Sharp on the first sip, clean and grounding on the finish.
             </p>
 
             {/* Developer Customization Hint */}
-            <div className="p-4 rounded-xl bg-[#FF4E6E]/10 border border-[#FF4E6E]/20 text-xs font-mono text-[#FBF1DE]/80 space-y-1">
-              <span className="text-[#FF4E6E] font-bold block">💡 Developer Note:</span>
+            <div className="p-4 rounded-xl bg-[#FF6B35]/10 border border-[#FF6B35]/20 text-xs font-mono text-[#FBF1DE]/80 space-y-1">
+              <span className="text-[#FF6B35] font-bold block">💡 Developer Note:</span>
               <p>
-                This is a fully independent page located at <code className="text-white bg-black/40 px-1 py-0.5 rounded">app/bubble/4/page.tsx</code>. You can customize the layout, text, pictures, or animations here without affecting any other bubble.
+                This is a fully independent page located at <code className="text-white bg-black/40 px-1 py-0.5 rounded">app/pages/1/page.tsx</code>. You can customize the layout, text, pictures, or animations here without affecting any other bubble.
               </p>
             </div>
 
@@ -135,21 +136,21 @@ export default function BubbleFourPage() {
               </h3>
               <div className="space-y-2">
                 {[
-                  { label: "Crisp Refreshment", val: "98%" },
-                  { label: "Sparkling Effervescence", val: "90%" },
-                  { label: "Juicy Melon Aroma", val: "84%" },
-                  { label: "Subtle Lime Rind", val: "42%" },
+                  { label: "Acidity & Tartness", val: "92%" },
+                  { label: "Natural Fizz Level", val: "78%" },
+                  { label: "Botanical Yuzu Aroma", val: "85%" },
+                  { label: "Residual Sweetness", val: "18%" },
                 ].map((stat, i) => (
                   <div key={i} className="text-xs font-mono flex items-center justify-between">
                     <span className="text-[#FBF1DE]/70">{stat.label}</span>
                     <div className="flex items-center gap-3">
                       <div className="w-28 h-1.5 rounded-full bg-white/10 overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-[#FF4E6E] to-[#4FCB8F]"
+                          className="h-full bg-gradient-to-r from-[#FFC94D] to-[#FF6B35]"
                           style={{ width: stat.val }}
                         />
                       </div>
-                      <span className="text-[#4FCB8F] w-8 text-right">{stat.val}</span>
+                      <span className="text-[#FFC94D] w-8 text-right">{stat.val}</span>
                     </div>
                   </div>
                 ))}
@@ -163,30 +164,30 @@ export default function BubbleFourPage() {
               </h3>
               <ul className="space-y-2 text-sm text-[#FBF1DE]/80">
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4E6E]" />
-                  100% cold-pressed organic heirloom watermelon
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]" />
+                  Cold-pressed Japanese yuzu and organic Amalfi lemon
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4FCB8F]" />
-                  A hint of Persian lime zest & pink sea salt
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]" />
+                  21-day slow wild fermentation with living SCOBY
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4E6E]" />
-                  Ultra-low calorie (only 14 kcal per can)
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]" />
+                  Zero refined sugars, zero artificial extracts
                 </li>
               </ul>
             </div>
 
             {/* Actions */}
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
-              <button className="flex-1 py-3.5 px-6 rounded-full bg-[#FF4E6E] hover:bg-[#ff5d7b] text-white font-semibold text-sm transition-all shadow-lg shadow-[#FF4E6E]/25">
-                Acquire Batch 04
+              <button className="flex-1 py-3.5 px-6 rounded-full bg-[#FF6B35] hover:bg-[#ff7b47] text-[#0E1713] font-semibold text-sm transition-all shadow-lg shadow-[#FF6B35]/25">
+                Acquire Batch 01
               </button>
               <Link
-                href="/bubble/5"
+                href="/pages/2"
                 className="py-3.5 px-6 rounded-full bg-white/10 hover:bg-white/15 text-[#FBF1DE] font-semibold text-sm transition-all border border-white/15 text-center"
               >
-                Next: Bubble 05 →
+                Next: Bubble 02 →
               </Link>
             </div>
           </div>
@@ -199,39 +200,39 @@ export default function BubbleFourPage() {
       <section className="border-t border-white/10 bg-white/[0.02] py-20 px-6">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#FF4E6E]">
-              Pure Summer Quench
+            <span className="text-xs font-mono uppercase tracking-widest text-[#FF6B35]">
+              Editorial Story
             </span>
             <h2 className="font-display text-3xl sm:text-4xl text-[#FBF1DE]">
-              The Chemistry of Solstice 04
+              The Architecture of Solstice 01
             </h2>
             <p className="text-[#FBF1DE]/60 max-w-xl mx-auto text-sm leading-relaxed">
-              Engineered to beat midday heatwaves with crisp, unadulterated botanical hydration.
+              Every drop is calibrated to strike the palette with immediate clarity before mellowing into rich probiotic balance.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-              <div className="text-xl font-mono text-[#FF4E6E]">01 / Pressing</div>
-              <h3 className="font-display text-lg text-[#FBF1DE]">Hydraulic Cold Extract</h3>
+              <div className="text-xl font-mono text-[#FFC94D]">01 / Sourcing</div>
+              <h3 className="font-display text-lg text-[#FBF1DE]">High-Altitude Citrus</h3>
               <p className="text-xs text-[#FBF1DE]/70 leading-relaxed">
-                Slow-crushed melon heart retaining complete cell vitality and crisp, clear sweetness.
+                Hand-harvested yuzu from Shikoku mountains, peeled within hours to capture essential floral oils.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-              <div className="text-xl font-mono text-[#4FCB8F]">02 / Sparkle</div>
-              <h3 className="font-display text-lg text-[#FBF1DE]">Natural Champagne Carbonation</h3>
+              <div className="text-xl font-mono text-[#FF6B35]">02 / Culture</div>
+              <h3 className="font-display text-lg text-[#FBF1DE]">Living Heritage Colony</h3>
               <p className="text-xs text-[#FBF1DE]/70 leading-relaxed">
-                Secondary bottle conditioning produces ultra-fine bubbles that feel crisp without heavy bloating.
+                Fermented over three weeks in temperature-controlled cedar vats using an heirloom tea base.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
-              <div className="text-xl font-mono text-[#FBF1DE]">03 / Minerals</div>
-              <h3 className="font-display text-lg text-[#FBF1DE]">Electrolyte Balance</h3>
+              <div className="text-xl font-mono text-[#FBF1DE]">03 / Finish</div>
+              <h3 className="font-display text-lg text-[#FBF1DE]">Micro-Effervescence</h3>
               <p className="text-xs text-[#FBF1DE]/70 leading-relaxed">
-                Naturally packed with L-citrulline and bioavailable potassium for rapid cell rehydration.
+                Canned at sub-zero temperatures to preserve the delicate living cultures and sharp citrus bite.
               </p>
             </div>
           </div>
@@ -243,18 +244,15 @@ export default function BubbleFourPage() {
           ========================================================================= */}
       <footer className="border-t border-white/10 py-12 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-xs font-mono uppercase text-[#FBF1DE]/40">Independent Bubble Route</p>
+            <p className="text-sm text-[#FBF1DE]/80">Currently viewing Bubble 1 (<code className="text-[#FF6B35]">/pages/1</code>)</p>
+          </div>
           <Link
-            href="/bubble/3"
-            className="group flex items-center gap-2 text-xs font-mono text-[#FBF1DE]/70 hover:text-white"
-          >
-            <span className="transition-transform group-hover:-translate-x-1">←</span>
-            Previous: Bubble 3 (Dragon Bloom)
-          </Link>
-          <Link
-            href="/bubble/5"
+            href="/pages/2"
             className="group flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-mono text-[#FBF1DE] transition-all"
           >
-            <span>Jump to Bubble 5: Mango Sunset</span>
+            <span>Jump to Bubble 2: Rose Peach Wave</span>
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>

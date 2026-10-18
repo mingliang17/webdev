@@ -78,7 +78,7 @@ rotate(-angle)` layered on top of the position transform — this stretches the
 bubble along the contact normal on impact and springs it back to a perfect
 circle at rest, which is the "morph then settle into a sphere" effect.
 
-**Hover.** Each bubble is a `next/link` to `/bubble/[id]`. Hover/focus fades
+**Hover.** Each bubble is a `next/link` to `/pages/[id]`. Hover/focus fades
 the sample image out, fades a title card in, and brings up a conic-gradient
 ring that spins clockwise (`.bubble-glow`, `.bubble-image`, `.bubble-title`
 in `globals.css`).

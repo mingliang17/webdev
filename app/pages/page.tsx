@@ -40,7 +40,7 @@ export default function BubbleIndexPage() {
           {bubbles.map((b) => (
             <Link
               key={b.id}
-              href={`/bubble/${b.id}`}
+              href={`/pages/${b.id}`}
               className="group rounded-3xl p-6 bg-white/[0.03] border border-white/10 hover:border-white/30 hover:bg-white/[0.06] transition-all flex flex-col justify-between space-y-6"
             >
               <div className="space-y-4">
@@ -66,7 +66,7 @@ export default function BubbleIndexPage() {
               </div>
 
               <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono">
-                <code className="text-[#FBF1DE]/50">app/bubble/{b.id}/page.tsx</code>
+                <code className="text-[#FBF1DE]/50">app/pages/{b.id}/page.tsx</code>
                 <span className="text-[#FF6B35] group-hover:translate-x-1 transition-transform">
                   Open →
                 </span>

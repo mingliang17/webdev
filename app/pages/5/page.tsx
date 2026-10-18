@@ -26,25 +26,25 @@ export default function BubbleFivePage() {
           {/* Quick Bubble Page Switcher */}
           <nav className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full p-1 text-xs font-mono">
             <Link
-              href="/bubble/1"
+              href="/pages/1"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               01
             </Link>
             <Link
-              href="/bubble/2"
+              href="/pages/2"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               02
             </Link>
             <Link
-              href="/bubble/3"
+              href="/pages/3"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               03
             </Link>
             <Link
-              href="/bubble/4"
+              href="/pages/4"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               04
@@ -124,7 +124,7 @@ export default function BubbleFivePage() {
             <div className="p-4 rounded-xl bg-[#FFA94D]/10 border border-[#FFA94D]/20 text-xs font-mono text-[#FBF1DE]/80 space-y-1">
               <span className="text-[#FFA94D] font-bold block">💡 Developer Note:</span>
               <p>
-                This is a fully independent page located at <code className="text-white bg-black/40 px-1 py-0.5 rounded">app/bubble/5/page.tsx</code>. You can customize the layout, text, pictures, or animations here without affecting any other bubble.
+                This is a fully independent page located at <code className="text-white bg-black/40 px-1 py-0.5 rounded">app/pages/5/page.tsx</code>. You can customize the layout, text, pictures, or animations here without affecting any other bubble.
               </p>
             </div>
 
@@ -183,7 +183,7 @@ export default function BubbleFivePage() {
                 Acquire Batch 05
               </button>
               <Link
-                href="/bubble/1"
+                href="/pages/1"
                 className="py-3.5 px-6 rounded-full bg-white/10 hover:bg-white/15 text-[#FBF1DE] font-semibold text-sm transition-all border border-white/15 text-center"
               >
                 Back to Bubble 01 ↺
@@ -244,14 +244,14 @@ export default function BubbleFivePage() {
       <footer className="border-t border-white/10 py-12 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
-            href="/bubble/4"
+            href="/pages/4"
             className="group flex items-center gap-2 text-xs font-mono text-[#FBF1DE]/70 hover:text-white"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
             Previous: Bubble 4 (Watermelon Fizz)
           </Link>
           <Link
-            href="/bubble/1"
+            href="/pages/1"
             className="group flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-mono text-[#FBF1DE] transition-all"
           >
             <span>Cycle to Bubble 1: Citrus Bloom</span>
