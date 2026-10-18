@@ -309,14 +309,16 @@ export default function Hero() {
           className="absolute inset-0 h-full w-full flex flex-col will-change-transform"
         >
           <div className="relative z-10 shrink-0 pt-28 pb-6 text-center px-6">
-            <div className="eyebrow">Pick your ferment</div>
-            <h1 className="text-[clamp(32px,5vw,54px)] mt-2">Bump a bubble to begin</h1>
-            <p className="text-ink/60 text-sm mt-3 max-w-md mx-auto">
-              Move your cursor through the bubbles — they drop in, bounce off
-              the walls and each other, and each one opens its own page.
+            <h1 className="text-[clamp(32px,10vw,54px)] mt-2">Wealth & Health</h1>
+            <p className="text-ink/60 text-sm mt-3 max-w-xxxl mx-auto whitespace-pre-line leading-relaxed">
+              {`Creating wealth builds financial freedom, while maintaining good health brings happiness and energy. Both are essential for living a successful, balanced, and fulfilling life.\n\nHow to Maintain Good Health – Prevention Is Better Than Cure\nMaintain good health through balanced meals, regular exercise, sufficient sleep, and routine check-ups. Prevention today supports a healthier future.`}
             </p>
-          </div>
+            <div className="flex justify-center">
+              <div className="ink/ text-xl mt-4 max-w-md mx-auto">Here are some choices: </div>
+            </div>
 
+          </div>
+          s
           <div ref={stageRef} className="relative flex-1 min-h-0">
             {bubbles.map((bubble, i) => (
               <div

@@ -159,7 +159,7 @@ export const products: Product[] = [
     ],
     sizes: ["Free size"],
     colors: [{ name: "Light Pink", hex: "#E3CFE6" }],
-    images: [asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg")],
+    images: [asset("/images/ni_fashion/3.jpeg")],
     tone: { c1: "#F3E4F5", c2: "#D8B8DD" },
     bestSeller: true,
   },
