@@ -26,38 +26,105 @@
   --animate-pulse-dot: pulseDot 2.4s ease-in-out infinite;
 
   @keyframes drift {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -40px) scale(1.08); }
-    66% { transform: translate(-25px, 25px) scale(0.96); }
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(30px, -40px) scale(1.08);
+    }
+
+    66% {
+      transform: translate(-25px, 25px) scale(0.96);
+    }
   }
+
   @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-16px) rotate(2deg); }
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+      transform: translateY(-16px) rotate(2deg);
+    }
   }
+
   @keyframes floatY {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-18px) rotate(3deg); }
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+      transform: translateY(-18px) rotate(3deg);
+    }
   }
+
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
   }
+
   @keyframes riseIn {
-    from { opacity: 0; transform: translateY(22px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
   @keyframes pulseDot {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.5); opacity: .5; }
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.5);
+      opacity: .5;
+    }
   }
+
   @keyframes scrollLine {
-    0% { top: -100%; }
-    50% { top: 0%; }
-    100% { top: 100%; }
+    0% {
+      top: -100%;
+    }
+
+    50% {
+      top: 0%;
+    }
+
+    100% {
+      top: 100%;
+    }
   }
+
   @keyframes fadeSwap {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -72,7 +139,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .font-display {
+h1,
+h2,
+h3,
+.font-display {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -99,6 +169,7 @@ h1, h2, h3, .font-display {
     inset 10px 0 16px rgb(255 255 255 / 0.28),
     0 24px 34px -12px rgb(18 33 27 / 0.35);
 }
+
 .can-shape::before {
   content: "";
   position: absolute;
@@ -110,6 +181,7 @@ h1, h2, h3, .font-display {
   background: linear-gradient(180deg, #fff8, var(--c1));
   box-shadow: 0 2px 5px rgb(0 0 0 / 0.15);
 }
+
 .can-shape::after {
   content: "";
   position: absolute;
@@ -127,6 +199,7 @@ h1, h2, h3, .font-display {
   transform: translateY(40px) scale(0.96);
   transition: opacity 0.9s var(--ease-brand), transform 0.9s var(--ease-brand);
 }
+
 .animate-in.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -135,10 +208,295 @@ h1, h2, h3, .font-display {
 [data-step].animate-in {
   transform: translateY(24px) scale(1);
 }
+
 [data-step].animate-in.is-visible {
   transform: translateY(0) scale(1);
 }
 
 .draw .process-line-fill {
   transform: scaleX(1);
+}
+
+/* Bouncy hero bubbles */
+.bubble {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.bubble-glow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+      var(--color-citrus),
+      var(--color-guava),
+      var(--color-lime),
+      var(--color-sun),
+      var(--color-citrus));
+  opacity: 0;
+  filter: blur(3px);
+  transition: opacity 0.45s var(--ease-brand);
+  animation: bubbleSpin 3.2s linear infinite;
+}
+
+.bubble:hover .bubble-glow,
+.bubble:focus-visible .bubble-glow {
+  opacity: 1;
+}
+
+@keyframes bubbleSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bubble-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-ink-2);
+  box-shadow:
+    inset 0 0 0 2px rgb(251 241 222 / 0.25),
+    0 18px 30px -10px rgb(18 33 27 / 0.4);
+}
+
+.bubble-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.45s var(--ease-brand), transform 0.6s var(--ease-brand);
+}
+
+.bubble:hover .bubble-image,
+.bubble:focus-visible .bubble-image {
+  /* Keep the image visible at 50% opacity so it peeks through the text overlay */
+  opacity: 0.5;
+  transform: scale(1.08);
+}
+
+/* Bouncy hero bubbles container for text */
+.bubble-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 14%;
+  /* 50% transparent dark gradient overlay */
+  background: linear-gradient(160deg, rgb(18 33 27 / 0.5), rgb(27 49 40 / 0.5));
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-brand);
+}
+
+.bubble:hover .bubble-content,
+.bubble:focus-visible .bubble-content {
+  opacity: 1;
+}
+
+.bubble-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(32px, 1.3vw + 8px, 48px);
+  color: var(--color-cream);
+  line-height: 1.2;
+  text-shadow: 0 0 12px rgb(251 241 222 / 0.7), 0 0 24px var(--color-sun);
+}
+
+.bubble-subtitle {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(16px, 0.9vw + 4px, 22px);
+  color: var(--color-cream);
+  opacity: 0.95;
+  margin-top: 4px;
+  text-shadow: 0 0 10px rgb(251 241 222 / 0.6);
+  white-space: pre-line;
+}
+
+/* =====================================================================
+   Shared shop design system — reusable classes used by /pages/1 and its
+   category + product pages. Change a value here and every page updates.
+   ===================================================================== */
+@layer components {
+  /* ---- Layout ---- */
+  .shell {
+    @apply mx-auto w-full max-w-[1180px] px-8;
+  }
+  .section {
+    @apply py-24;
+  }
+  .section-alt {
+    @apply bg-cream-2;
+  }
+  .section-head {
+    @apply mx-auto mb-14 max-w-[640px] text-center;
+  }
+  .section-head-row {
+    @apply mb-10 flex flex-wrap items-end justify-between gap-4;
+  }
+  .section-title {
+    @apply mt-2.5 text-[clamp(32px,5vw,52px)];
+  }
+  .page-top {
+    @apply pt-8;
+  }
+  .lead {
+    @apply text-[17px] leading-relaxed text-ink/70;
+  }
+  .body-copy {
+    @apply text-[15.5px] leading-relaxed text-ink/70;
+  }
+
+  /* ---- Site chrome (shop header / footer) ---- */
+  .site-header {
+    @apply sticky top-0 z-50 border-b border-line bg-cream/80 backdrop-blur-md;
+  }
+  .site-header-inner {
+    @apply mx-auto flex max-w-[1180px] items-center justify-between gap-6 px-8 py-4;
+  }
+  .brand {
+    @apply flex items-center gap-2 font-display text-xl font-extrabold;
+  }
+  .brand-dot {
+    @apply h-2.5 w-2.5 animate-pulse-dot rounded-full bg-citrus;
+  }
+  .nav-link {
+    @apply relative py-1 text-sm font-medium transition-colors duration-300 ease-brand hover:text-citrus;
+  }
+  .site-footer {
+    @apply border-t border-line bg-cream-2 py-10 text-[13px] text-ink/60;
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all duration-300 ease-brand hover:-translate-y-0.5;
+  }
+  .btn-primary {
+    @apply bg-ink text-cream hover:bg-citrus hover:text-ink;
+  }
+  .btn-outline {
+    @apply border-[1.5px] border-ink bg-transparent text-ink hover:bg-ink hover:text-cream;
+  }
+  .btn-link {
+    @apply text-sm font-semibold underline decoration-citrus decoration-2 underline-offset-4 transition-colors hover:text-citrus;
+  }
+
+  /* ---- Chips / tags / swatches ---- */
+  .chip {
+    @apply cursor-default rounded-full border border-line px-3 py-1.5 font-mono text-[11px];
+  }
+  .chip-option {
+    @apply cursor-pointer rounded-full border border-line px-4 py-2 font-mono text-xs transition-colors duration-300 ease-brand hover:border-ink;
+  }
+  .chip-active {
+    @apply border-ink bg-ink text-cream;
+  }
+  .swatch {
+    @apply h-8 w-8 cursor-pointer rounded-full border border-line transition-transform duration-300 ease-brand hover:scale-110;
+  }
+  .swatch-active {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+
+  /* ---- Media (image / video / placeholder) ---- */
+  .media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: linear-gradient(
+      158deg,
+      var(--c1, var(--color-sun)),
+      var(--c2, var(--color-citrus)) 70%
+    );
+  }
+  .media-placeholder {
+    @apply absolute inset-0 flex items-center justify-center p-4 text-center font-mono text-xs uppercase tracking-[.12em] text-ink/50;
+  }
+  .media-banner {
+    @apply aspect-[4/5] sm:aspect-[16/8];
+  }
+  .media-banner > img {
+    object-position: center 28%;
+  }
+  .media-video {
+    @apply aspect-video;
+  }
+  .media-product {
+    @apply aspect-[4/5];
+  }
+  .media-card {
+    @apply aspect-[4/5];
+  }
+  .banner-card {
+    @apply absolute bottom-5 left-5 right-5 max-w-[460px] rounded-2xl bg-cream/85 p-7 backdrop-blur-md sm:bottom-8 sm:left-8;
+  }
+  .play-icon {
+    @apply flex h-16 w-16 items-center justify-center rounded-full bg-cream/90 text-ink shadow-[0_14px_30px_rgb(18_33_27_/_0.2)];
+  }
+
+  /* ---- Cards & grids ---- */
+  .card-link {
+    @apply block;
+  }
+  .card-link .media {
+    @apply transition-transform duration-500 ease-brand;
+  }
+  .card-link:hover .media {
+    @apply -translate-y-1.5;
+  }
+  .card-title {
+    @apply mt-4 font-display text-lg font-bold leading-tight tracking-tight;
+  }
+  .card-meta {
+    @apply mt-1 text-sm text-ink/60;
+  }
+  .badge {
+    @apply absolute left-3 top-3 z-[2] rounded-full bg-cream px-3 py-1 font-mono text-[10px] uppercase tracking-[.1em];
+  }
+  .price {
+    @apply font-mono text-sm;
+  }
+  .price-lg {
+    @apply font-mono text-2xl;
+  }
+  .product-grid {
+    @apply grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 lg:grid-cols-4;
+  }
+  .category-grid {
+    @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  /* ---- Breadcrumbs ---- */
+  .breadcrumb {
+    @apply mb-8 flex flex-wrap items-center gap-2 font-mono text-xs text-ink/55;
+  }
+  .breadcrumb a {
+    @apply transition-colors hover:text-citrus;
+  }
+
+  /* ---- Product page ---- */
+  .product-layout {
+    @apply grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16;
+  }
+  .product-gallery {
+    @apply grid grid-cols-3 gap-3;
+  }
+  .product-gallery > :first-child {
+    @apply col-span-3;
+  }
+  .detail-list {
+    @apply mt-6 space-y-2 border-t border-line pt-6 text-sm text-ink/70;
+  }
+  .field-label {
+    @apply mb-3 block font-mono text-xs uppercase tracking-[.12em] text-ink/60;
+  }
 }

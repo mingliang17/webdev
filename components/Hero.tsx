@@ -1,60 +1,367 @@
-import Can from "./Can";
+"use client";
+
+import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { bubbles } from "@/lib/bubbles";
+import Warrior from "./Warrior";
+
+type Ball = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  r: number;
+  squash: number; // 0 = sphere, 1 = max deformation
+  squashAngle: number; // radians, axis of the last impact
+};
+
+const BASE_RADII = [260, 260, 260, 150, 150];
+
+// Physics tuning
+const GRAVITY = 0.18;
+const WALL_RESTITUTION = 0.72; // bounce off walls/floor/ceiling
+const BALL_RESTITUTION = 0.86; // bouncier ball-vs-ball contact
+const FLOOR_FRICTION = 0.98;
+const REPEL_RADIUS = 160;
+const REPEL_STRENGTH = 2.6;
+const COLLISION_ITERATIONS = 4; // multiple passes/frame so balls never overlap
+const REST_EPS = 0.05; // below this speed (and resting on floor) a ball fully stops
+const SQUASH_DECAY = 0.84; // how fast a bubble springs back to a sphere
+
+// Scroll-jack tuning (in vh, i.e. relative to viewport height)
+const HOLD_VH = 25; // scroll distance the hero stays fully locked/visible before transitioning
+const TRANSITION_VH = 180; // scroll distance over which bubbles float up + fade, Warrior fades in
+const DWELL_VH = 60; // scroll distance Warrior stays fully visible/locked after the fade, before unlocking
+const FLOAT_DISTANCE = 480; // px the bubble layer floats upward during the transition
+
+function scaleFactor(width: number) {
+  if (width < 640) return 0.6;
+  if (width < 960) return 0.8;
+  return 1;
+}
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bubbleLayerRef = useRef<HTMLDivElement>(null);
+  const warriorLayerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const ballRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const balls = useRef<Ball[]>([]);
+  const mouse = useRef({ x: 0, y: 0, active: false });
+  const rafRef = useRef<number | null>(null);
+
+  // --- Bubble physics ------------------------------------------------
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    function applySizes() {
+      const factor = scaleFactor(stage!.clientWidth);
+      balls.current.forEach((b, i) => {
+        b.r = BASE_RADII[i % BASE_RADII.length] * factor;
+        const el = ballRefs.current[i];
+        if (el) {
+          el.style.width = `${b.r * 2}px`;
+          el.style.height = `${b.r * 2}px`;
+        }
+      });
+    }
+
+    // Drop-in entrance: every ball starts above the stage and staggers in
+    function init() {
+      balls.current = bubbles.map(() => ({
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        r: 0,
+        squash: 0,
+        squashAngle: 0,
+      }));
+      applySizes();
+      const width = stage!.clientWidth;
+      balls.current.forEach((b, i) => {
+        const slot = (i + 1) / (balls.current.length + 1);
+        b.x = width * slot + (Math.random() - 0.5) * 24;
+        b.y = -b.r - i * 90 - Math.random() * 40;
+        b.vx = (Math.random() - 0.5) * 1.5;
+        b.vy = 0;
+      });
+    }
+
+    function handleResize() {
+      applySizes();
+      const width = stage!.clientWidth;
+      const height = stage!.clientHeight;
+      balls.current.forEach((b) => {
+        b.x = Math.min(Math.max(b.x, b.r), Math.max(width - b.r, b.r));
+        b.y = Math.min(b.y, Math.max(height - b.r, b.r));
+      });
+    }
+
+    function resolveWalls(b: Ball, width: number, height: number) {
+      if (b.x - b.r < 0) {
+        b.x = b.r;
+        const impact = Math.abs(b.vx);
+        b.vx = -b.vx * WALL_RESTITUTION;
+        setSquash(b, impact, 0);
+      }
+      if (b.x + b.r > width) {
+        b.x = width - b.r;
+        const impact = Math.abs(b.vx);
+        b.vx = -b.vx * WALL_RESTITUTION;
+        setSquash(b, impact, 0);
+      }
+      if (b.y - b.r < 0) {
+        b.y = b.r;
+        const impact = Math.abs(b.vy);
+        b.vy = -b.vy * WALL_RESTITUTION;
+        setSquash(b, impact, Math.PI / 2);
+      }
+      if (b.y + b.r > height) {
+        b.y = height - b.r;
+        const impact = Math.abs(b.vy);
+        b.vy = -b.vy * WALL_RESTITUTION;
+        b.vx *= FLOOR_FRICTION;
+        setSquash(b, impact, Math.PI / 2);
+
+        // fully settle once a ball is resting on the floor with tiny velocity
+        if (Math.abs(b.vy) < REST_EPS && Math.abs(b.vx) < REST_EPS) {
+          b.vy = 0;
+          b.vx = 0;
+        }
+      }
+    }
+
+    function setSquash(b: Ball, impactSpeed: number, angle: number) {
+      const amt = Math.min(impactSpeed / 14, 1);
+      if (amt > b.squash) {
+        b.squash = amt;
+        b.squashAngle = angle;
+      }
+    }
+
+    // Multiple relaxation passes per frame so bubbles never end up overlapping
+    function resolveBallCollisions() {
+      const list = balls.current;
+      for (let pass = 0; pass < COLLISION_ITERATIONS; pass++) {
+        for (let i = 0; i < list.length; i++) {
+          for (let j = i + 1; j < list.length; j++) {
+            const a = list[i];
+            const c = list[j];
+            const dx = c.x - a.x;
+            const dy = c.y - a.y;
+            const dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+            const minDist = a.r + c.r;
+            if (dist < minDist) {
+              const nx = dx / dist;
+              const ny = dy / dist;
+              const overlap = minDist - dist;
+
+              // positional correction — fully separates the pair, no residual overlap
+              a.x -= nx * (overlap / 2);
+              a.y -= ny * (overlap / 2);
+              c.x += nx * (overlap / 2);
+              c.y += ny * (overlap / 2);
+
+              // velocity impulse along the contact normal (equal mass, restitution e)
+              const rvx = c.vx - a.vx;
+              const rvy = c.vy - a.vy;
+              const rvn = rvx * nx + rvy * ny;
+              if (rvn < 0) {
+                const impulse = -(1 + BALL_RESTITUTION) * rvn * 0.5;
+                a.vx -= impulse * nx;
+                a.vy -= impulse * ny;
+                c.vx += impulse * nx;
+                c.vy += impulse * ny;
+
+                const angle = Math.atan2(ny, nx);
+                const impactSpeed = Math.abs(rvn);
+                setSquash(a, impactSpeed, angle);
+                setSquash(c, impactSpeed, angle);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    function step() {
+      const width = stage!.clientWidth;
+      const height = stage!.clientHeight;
+      const list = balls.current;
+
+      for (let i = 0; i < list.length; i++) {
+        const b = list[i];
+        b.vy += GRAVITY;
+        b.x += b.vx;
+        b.y += b.vy;
+
+        if (mouse.current.active) {
+          const dx = b.x - mouse.current.x;
+          const dy = b.y - mouse.current.y;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
+          if (dist < REPEL_RADIUS) {
+            const force = ((REPEL_RADIUS - dist) / REPEL_RADIUS) * REPEL_STRENGTH;
+            b.vx += (dx / dist) * force;
+            b.vy += (dy / dist) * force;
+          }
+        }
+
+        resolveWalls(b, width, height);
+      }
+
+      resolveBallCollisions();
+
+      list.forEach((b, i) => {
+        // spring the squash back toward 0 — bubbles only rest as a perfect sphere
+        b.squash *= SQUASH_DECAY;
+        if (b.squash < 0.02) b.squash = 0;
+
+        const el = ballRefs.current[i];
+        if (!el) return;
+        const angleDeg = (b.squashAngle * 180) / Math.PI;
+        const stretch = b.squash * 0.22;
+        el.style.transform =
+          `translate3d(${b.x - b.r}px, ${b.y - b.r}px, 0) ` +
+          `rotate(${angleDeg}deg) scale(${1 + stretch}, ${1 - stretch}) rotate(${-angleDeg}deg)`;
+      });
+
+      rafRef.current = requestAnimationFrame(step);
+    }
+
+    init();
+    rafRef.current = requestAnimationFrame(step);
+
+    function onPointerMove(e: PointerEvent) {
+      const rect = stage!.getBoundingClientRect();
+      mouse.current.x = e.clientX - rect.left;
+      mouse.current.y = e.clientY - rect.top;
+      mouse.current.active = true;
+    }
+    function onPointerLeave() {
+      mouse.current.active = false;
+    }
+
+    stage.addEventListener("pointermove", onPointerMove);
+    stage.addEventListener("pointerleave", onPointerLeave);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      stage.removeEventListener("pointermove", onPointerMove);
+      stage.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // --- Locked scroll-jack transition: bubbles float up + fade out, --
+  // --- Warrior content fades/rises in, both pinned in the same view -
+  useEffect(() => {
+    const section = sectionRef.current;
+    const bubbleLayer = bubbleLayerRef.current;
+    const warriorLayer = warriorLayerRef.current;
+    if (!section || !bubbleLayer || !warriorLayer) return;
+
+    function updateProgress() {
+      const vh = window.innerHeight;
+      const holdPx = (HOLD_VH / 100) * vh;
+      const transitionPx = (TRANSITION_VH / 100) * vh;
+
+      const rect = section!.getBoundingClientRect();
+      const scrolled = Math.min(Math.max(-rect.top, 0), holdPx + transitionPx);
+
+      const t =
+        scrolled <= holdPx
+          ? 0
+          : Math.min(Math.max((scrolled - holdPx) / transitionPx, 0), 1);
+
+      // outgoing bubble layer: floats upward, fades out
+      bubbleLayer!.style.opacity = String(1 - t);
+      bubbleLayer!.style.transform = `translate3d(0, ${-t * FLOAT_DISTANCE}px, 0)`;
+      bubbleLayer!.style.pointerEvents = t > 0.4 ? "none" : "auto";
+
+      // incoming Warrior layer: rises into place, fades in
+      warriorLayer!.style.opacity = String(t);
+      warriorLayer!.style.transform = `translate3d(0, ${(1 - t) * 40}px, 0)`;
+      warriorLayer!.style.pointerEvents = t > 0.6 ? "auto" : "none";
+    }
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-[100svh] flex flex-col justify-center items-center text-center pt-16 overflow-hidden">
-      <div className="absolute w-[520px] h-[520px] rounded-full blur-[60px] opacity-55 -top-40 -left-30 bg-[radial-gradient(circle_at_30%_30%,var(--color-sun),transparent_70%)] animate-drift" />
-      <div className="absolute w-[460px] h-[460px] rounded-full blur-[60px] opacity-55 -bottom-36 -right-24 bg-[radial-gradient(circle_at_60%_40%,var(--color-guava),transparent_70%)] animate-drift [animation-duration:22s] [animation-delay:-4s]" />
-      <div className="absolute w-[360px] h-[360px] rounded-full blur-[60px] opacity-55 top-[30%] right-[10%] bg-[radial-gradient(circle_at_50%_50%,var(--color-lime),transparent_70%)] animate-drift [animation-duration:14s] [animation-delay:-8s]" />
-
-      <div className="eyebrow mb-4 opacity-0 animate-rise-in [animation-delay:.1s]">
-        Small-batch · Low sugar · Live cultures
-      </div>
-
-      <h1 className="text-[clamp(48px,8vw,108px)] max-w-[28ch] opacity-0 animate-rise-in [animation-delay:.25s]">
-        The Immune System is the  body’s true doctor. Prevention is better than cure. 
-        <br />
-      </h1>
-      <div className="h-10">
-
-      </div>
-      <h1 className="text-[clamp(24px,16vw,72px)] max-w-[60ch] opacity-0 animate-rise-in [animation-delay:.25s]">
-        免疫系统才是人体真正的医生。预防胜于治疗.
-        <br />
-      </h1>
-
-
-      <p className="max-w-[520px] mx-auto mt-6 mb-8 text-[17px] text-ink/70 opacity-0 animate-rise-in [animation-delay:.4s]">
-        Solstice is fermented tea done properly — naturally low in sugar,
-        alive with probiotics, and built for people who taste before they
-        read the label.
-      </p>
-
-      <div className="flex gap-3.5 justify-center opacity-0 animate-rise-in [animation-delay:.55s]">
-        <a
-          href="#dial"
-          className="inline-flex items-center gap-2 px-6.5 py-3.5 rounded-full font-semibold text-sm bg-ink text-cream transition-transform duration-300 ease-brand hover:-translate-y-1 hover:shadow-[0_14px_30px_rgb(18_33_27_/_0.25)]"
+    <section
+      ref={sectionRef}
+      className="relative"
+      style={{ height: `calc(100svh + ${HOLD_VH + TRANSITION_VH + DWELL_VH}vh)` }}
+    >
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[linear-gradient(180deg,#FDF8EC,var(--color-cream))]">
+        {/* Layer 1: bouncy bubble hero — floats up + fades during transition */}
+        <div
+          ref={bubbleLayerRef}
+          className="absolute inset-0 h-full w-full flex flex-col will-change-transform"
         >
-          Explore flavors
-        </a>
-        <a
-          href="#process"
-          className="inline-flex items-center gap-2 px-6.5 py-3.5 rounded-full font-semibold text-sm border-[1.5px] border-ink transition-all duration-300 ease-brand hover:-translate-y-1 hover:bg-ink hover:text-cream"
+          <div className="relative z-10 shrink-0 pt-28 pb-6 text-center px-6">
+            <h1 className="text-[clamp(32px,10vw,54px)] mt-2">Wealth & Health</h1>
+            <p className="text-ink/60 text-sm mt-3 max-w-xxxl mx-auto whitespace-pre-line leading-relaxed">
+              {`Creating wealth builds financial freedom, while maintaining good health brings happiness and energy. Both are essential for living a successful, balanced, and fulfilling life.\n\nHow to Maintain Good Health – Prevention Is Better Than Cure\nMaintain good health through balanced meals, regular exercise, sufficient sleep, and routine check-ups. Prevention today supports a healthier future.`}
+            </p>
+            <div className="flex justify-center">
+              <div className="ink/ text-xl mt-4 max-w-md mx-auto">Here are some choices: </div>
+            </div>
+
+          </div>
+
+          <div ref={stageRef} className="relative flex-1 min-h-0">
+            {bubbles.map((bubble, i) => (
+              <div
+                key={bubble.id}
+                ref={(el) => {
+                  ballRefs.current[i] = el;
+                }}
+                className="absolute top-0 left-0 will-change-transform"
+              >
+                <Link
+                  href={bubble.href || `/pages/${bubble.id}`}
+                  className="bubble"
+                  aria-label={`Open ${bubble.title}`}
+                >
+                  <span className="bubble-glow" aria-hidden="true" />
+                  <span className="bubble-face">
+                    <img src={bubble.image} alt="" className="bubble-image" />
+                    <span className="bubble-content">
+                      <span className="bubble-title">{bubble.title}</span>
+                      {bubble.subtitle && (
+                        <span className="bubble-subtitle">
+                          {bubble.subtitle.split('\n').map((line, idx) => (
+                            <span key={idx} className="block">
+                              {line.trim()}
+                            </span>
+                          ))}
+                        </span>
+                      )}
+                    </span>
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Layer 2: Warrior content — rises + fades in as the bubbles leave */}
+        <div
+          ref={warriorLayerRef}
+          id="warrior"
+          className="absolute inset-0 h-full w-full opacity-0 will-change-transform"
         >
-          See how it&apos;s brewed
-        </a>
-      </div>
-
-      <div className="relative mt-14 flex gap-5 justify-center opacity-0 animate-rise-in [animation-delay:.7s]">
-        <Can c1="#FFC94D" c2="#FF6B35" label="Citrus" size="sm" className="animate-bob scale-70 translate-y-5" />
-        <Can c1="#FF8FB3" c2="#FF4E86" label="Berry" size="sm" className="animate-bob [animation-delay:-1.2s]" />
-        <Can c1="#B8F0C9" c2="#1D9E75" label="Mint" size="sm" className="animate-bob [animation-delay:-2.6s] scale-70 translate-y-5" />
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 font-mono text-[11px] tracking-[.1em] opacity-55">
-        <span>SCROLL</span>
-        <div className="relative w-px h-8.5 bg-ink overflow-hidden">
-          <span className="absolute left-0 w-full h-full bg-citrus animate-[scrollLine_1.8s_ease-in-out_infinite]" />
+          <Warrior />
         </div>
       </div>
     </section>
