@@ -14,7 +14,7 @@ import {
 } from "@/lib/shop";
 
 /**
- * /pages/1 — NI Fashion landing page (Bubble 1).
+ * /pages/nifashion — NI Fashion landing page (Bubble 1).
  * Fully editable: change the copy/media in `content`, reorder or remove
  * sections in the JSX below, or add new ones.
  * Media paths point to files in /public (use asset() for names with spaces).

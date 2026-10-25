@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { categories, categoryHref, SHOP_BASE, SHOP_NAME } from "@/lib/shop";
 
-/** Light, sticky header shared by every page under /pages/1. */
+/** Light, sticky header shared by every page under /pages/nifashion. */
 export default function ShopHeader() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
         <Link href={SHOP_BASE} className="brand">
-          <span className="brand-dot" />
           {SHOP_NAME}
         </Link>
 
@@ -20,7 +19,7 @@ export default function ShopHeader() {
         </nav>
 
         <Link href="/" className="btn-link">
-          ← Back to Solstice
+          ← Back to BePearls Enterprise
         </Link>
       </div>
     </header>

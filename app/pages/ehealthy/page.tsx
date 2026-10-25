@@ -35,14 +35,12 @@ export default function BubbleTwoPage() {
           ========================================================================= */}
       {isOpen && (
         <div
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-lg p-4 sm:p-8 transition-opacity duration-300 ease-out ${
-            isExiting ? "opacity-0" : "opacity-100"
-          }`}
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-lg p-4 sm:p-8 transition-opacity duration-300 ease-out ${isExiting ? "opacity-0" : "opacity-100"
+            }`}
         >
           <div
-            className={`relative w-full max-w-5xl bg-[#1A1117] rounded-3xl overflow-hidden border border-white/25 shadow-2xl transition-all duration-300 ease-out ${
-              isExiting ? "scale-95 opacity-0" : "scale-100 opacity-100"
-            }`}
+            className={`relative w-full max-w-5xl bg-[#1A1117] rounded-3xl overflow-hidden border border-white/25 shadow-2xl transition-all duration-300 ease-out ${isExiting ? "scale-95 opacity-0" : "scale-100 opacity-100"
+              }`}
           >
             <button
               onClick={handleClose}
@@ -82,13 +80,13 @@ export default function BubbleTwoPage() {
             className="group inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-[#FBF1DE]/70 hover:text-[#FF4E86] transition-colors"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
-            Back to Solstice
+            Back to BePearls Enterprise
           </Link>
 
           {/* Quick Bubble Page Switcher */}
           <nav className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full p-1 text-xs font-mono">
             <Link
-              href="/pages/1"
+              href="/pages/nifashion"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               01
@@ -97,19 +95,19 @@ export default function BubbleTwoPage() {
               02
             </span>
             <Link
-              href="/pages/3"
+              href="/pages/snowlotus"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               03
             </Link>
             <Link
-              href="/pages/4"
+              href="/pages/uslandreseller"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               04
             </Link>
             <Link
-              href="/pages/5"
+              href="/pages/embroidery"
               className="px-3 py-1 rounded-full text-[#FBF1DE]/60 hover:text-[#FBF1DE] hover:bg-white/10 transition-colors"
             >
               05
@@ -123,7 +121,7 @@ export default function BubbleTwoPage() {
           ========================================================================= */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           {/* Left Side: 2 Different Images */}
           <div className="lg:col-span-6 grid grid-cols-2 gap-4">
             <div className="group relative rounded-2xl overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/15 shadow-xl">
@@ -156,7 +154,7 @@ export default function BubbleTwoPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF4E86]/15 border border-[#FF4E86]/30 text-[#FF4E86] text-xs font-mono uppercase tracking-widest">
               Top Half Showcase
             </div>
-            
+
             <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#FBF1DE] leading-[1.05]">
               Goji Garden Coffee <br /> 枸杞花园咖啡
             </h1>
@@ -170,13 +168,13 @@ export default function BubbleTwoPage() {
             </p>
 
             <div className="pt-2 flex gap-4">
-              <button 
+              <button
                 onClick={() => {
                   setIsExiting(false);
                   setIsOpen(true);
                   if (videoRef.current) {
                     videoRef.current.currentTime = 0;
-                    videoRef.current.play().catch(() => {});
+                    videoRef.current.play().catch(() => { });
                   }
                 }}
                 className="py-3 px-6 rounded-full bg-[#FF4E86] hover:bg-[#ff5d92] text-white font-semibold text-sm transition-all shadow-lg shadow-[#FF4E86]/25"
@@ -216,7 +214,7 @@ export default function BubbleTwoPage() {
 
               <div className="pt-2">
                 <Link
-                  href="/pages/3"
+                  href="/pages/snowlotus"
                   className="inline-block py-3 px-6 rounded-full bg-white/10 hover:bg-white/15 text-[#FBF1DE] font-semibold text-sm transition-all border border-white/15"
                 >
                   Next: Bubble 03 →
@@ -261,14 +259,14 @@ export default function BubbleTwoPage() {
       <footer className="border-t border-white/10 py-12 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
-            href="/pages/1"
+            href="/pages/nifashion"
             className="group flex items-center gap-2 text-xs font-mono text-[#FBF1DE]/70 hover:text-white"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
             Previous: Bubble 1 (Citrus Bloom)
           </Link>
           <Link
-            href="/pages/3"
+            href="/pages/snowlotus"
             className="group flex items-center gap-3 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-mono text-[#FBF1DE] transition-all"
           >
             <span>Jump to Bubble 3: Dragon Bloom Tropical</span>

@@ -1,7 +1,7 @@
 import ShopHeader from "@/components/shop/ShopHeader";
 import ShopFooter from "@/components/shop/ShopFooter";
 
-/** Shared chrome for every page under /pages/1 (landing, category, product). */
+/** Shared chrome for every page under /pages/nifashion (landing, category, product). */
 export default function ShopLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {

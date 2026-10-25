@@ -356,13 +356,13 @@ export default function Hero() {
         </div>
 
         {/* Layer 2: Warrior content — rises + fades in as the bubbles leave */}
-        <div
+        {/* <div
           ref={warriorLayerRef}
           id="warrior"
           className="absolute inset-0 h-full w-full opacity-0 will-change-transform"
         >
           <Warrior />
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -18,7 +18,7 @@ import {
 } from "@/lib/shop";
 
 /**
- * /pages/1/[category]/[product] — reusable product template.
+ * /pages/nifashion/[category]/[product] — reusable product template.
  * Content comes from `products` in lib/shop.ts.
  */
 

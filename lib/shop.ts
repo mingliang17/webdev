@@ -1,5 +1,5 @@
 /**
- * Shop data + route helpers for the NI Fashion store at /pages/1.
+ * Shop data + route helpers for the NI Fashion store at /pages/nifashion.
  *
  * Edit the arrays below to change your catalog. Put images/videos in
  * /public/images/ni_fashion/ and reference them with asset("/images/...").
@@ -10,7 +10,7 @@
  * colour). The other products are sample entries — replace them with your own.
  */
 
-export const SHOP_BASE = "/pages/1";
+export const SHOP_BASE = "/pages/nifashion";
 export const SHOP_NAME = "NI Fashion";
 export const CURRENCY = "S$";
 
@@ -49,9 +49,8 @@ export const heroVideo = asset("/images/ni_fashion/20261013_AI Images 2_ok.mp4")
 
 export const categories: Category[] = [
   {
-    slug: "clothing",
-    name: "Clothing",
-    tagline: "Style, elegance, you",
+    slug: "bedding",
+    name: "Bedding",
     description:
       "Cardigans, dresses and outerwear from the Negative Ion Clothing series, styled for everyday life.",
     image: asset("/images/ni_fashion/1.jpg"),
@@ -59,16 +58,28 @@ export const categories: Category[] = [
     tone: { c1: "#FFC94D", c2: "#FF6B35" },
   },
   {
-    slug: "bedding",
-    name: "Bedding",
-    tagline: "Rest, restored",
+    slug: "innerwear",
+    name: "Innerwear",
     description: "Sheets, pillowcases and bedding sets from the Negative Ion Bedding series.",
     tone: { c1: "#B8F0C9", c2: "#1D9E75" },
   },
   {
+    slug: "outerwear",
+    name: "Outerwear",
+    description: "Hats, gloves and scarves that add warmth and finish the look.",
+    image: asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg"),
+    tone: { c1: "#FFD3B8", c2: "#FF8F6B" },
+  },
+  {
     slug: "accessories",
     name: "Accessories",
-    tagline: "The finishing touches",
+    description: "Hats, gloves and scarves that add warmth and finish the look.",
+    image: asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg"),
+    tone: { c1: "#FFD3B8", c2: "#FF8F6B" },
+  },
+  {
+    slug: "gentlecare",
+    name: "Gentle Care",
     description: "Hats, gloves and scarves that add warmth and finish the look.",
     image: asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg"),
     tone: { c1: "#FFD3B8", c2: "#FF8F6B" },

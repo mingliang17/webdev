@@ -20,20 +20,20 @@ export default async function BubblePage({
   return (
     <main className="min-h-screen bg-[#0d0d0f] text-[#f7f5ef] font-sans antialiased selection:bg-[#ff6b35] selection:text-white">
       <div className="max-w-[1100px] mx-auto px-6 sm:px-8 pt-12 pb-24">
-        
+
         {/* Navigation Breadcrumb */}
         <Link
           href="/"
           className="text-sm tracking-wider uppercase opacity-60 hover:opacity-100 inline-flex items-center gap-2 mb-12 transition-opacity"
         >
-          ← Back to Solstice
+          ← Back to BePearls Enterprise
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* Left Column: Image and Video Media Slots */}
           <div className="lg:col-span-7 space-y-6">
-            
+
             {/* Custom Image Container */}
             <div className="rounded-3xl overflow-hidden aspect-[4/3] bg-neutral-900 border border-white/10 shadow-2xl">
               <img

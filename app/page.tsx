@@ -10,9 +10,9 @@ export default function Home() {
     <main>
       <Header />
       <Hero />
-      <FlavorDial />
+      {/* <FlavorDial />
       <FlavorShowcase />
-      <ProcessStrip />
+      <ProcessStrip /> */}
       <Newsletter />
     </main>
   );

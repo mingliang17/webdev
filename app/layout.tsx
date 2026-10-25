@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Solstice Kombucha — Brew brighter. Sip lighter.",
+  title: "Bepearls Enterprise",
   description:
     "Small-batch fermented tea, naturally low in sugar and alive with probiotics.",
+  // You can keep or remove 'icons' here if using the manual <link> tag below
 };
 
 export default function RootLayout({
@@ -13,6 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Direct link fallback */}
+        <link rel="icon" href="/images/logo_transparent.png" type="image/png" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

@@ -3,10 +3,11 @@
 import { useState } from "react";
 
 const marqueeItems = [
-  "Solstice Kombucha",
-  "Low sugar",
-  "Live cultures",
-  "Unpasteurized",
+  "NI Fashion",
+  "eHealthy",
+  "Snow Lotus",
+  "US Land Reseller",
+  "Chinese Folk Embroidery",
 ];
 
 export default function Newsletter() {
@@ -18,7 +19,7 @@ export default function Newsletter() {
       <div className="absolute w-[380px] h-[380px] rounded-full blur-[70px] opacity-35 -bottom-30 -right-16 bg-lime animate-drift [animation-duration:20s] [animation-delay:-6s]" />
 
       <div className="relative z-2 max-w-[640px] mx-auto text-center pb-22 px-8">
-        <div className="eyebrow text-cream/60">Join the ferment</div>
+        <div className="eyebrow text-cream/60">Make your choices</div>
         <h2 className="text-[clamp(30px,4.4vw,46px)] my-3.5 mb-7.5">
           Be first to taste what&apos;s next.
         </h2>
@@ -59,7 +60,7 @@ export default function Newsletter() {
       </div>
 
       <div className="relative z-2 max-w-[1180px] mx-auto px-8 border-t border-cream/14 py-6.5 flex justify-between items-center flex-wrap gap-3 text-[12.5px] text-cream/55">
-        <span>© 2026 Solstice Kombucha</span>
+        <span>© 2026 Bepearls Enterprise</span>
         <div className="flex gap-4.5">
           <a href="#" className="hover:text-cream transition-colors">Instagram</a>
           <a href="#" className="hover:text-cream transition-colors">TikTok</a>

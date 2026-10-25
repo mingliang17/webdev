@@ -17,7 +17,7 @@ export default function BubbleIndexPage() {
             className="group inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-[#FBF1DE]/70 hover:text-[#FF6B35] transition-colors"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
-            Back to Solstice
+            Back to BePearls Enterprise
           </Link>
           <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-[#FBF1DE]/70">
             5 Independent Pages
