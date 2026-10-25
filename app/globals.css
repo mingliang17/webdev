@@ -484,7 +484,7 @@ h3,
   }
 
   .card-title {
-    @apply mt-4 font-display text-lg font-bold leading-tight tracking-tight;
+    @apply mt-4 font-display text-lg font-bold leading-tight tracking-tight whitespace-pre-line;
   }
 
   .card-meta {

@@ -22,7 +22,7 @@ export type Tone = { c1: string; c2: string };
 export type Category = {
   slug: string;
   name: string;
-  tagline: string;
+  tagline?: string;
   description: string;
   image?: string;
   video?: string;
@@ -52,36 +52,37 @@ export const categories: Category[] = [
     slug: "bedding",
     name: "Bedding",
     description:
-      "Cardigans, dresses and outerwear from the Negative Ion Clothing series, styled for everyday life.",
-    image: asset("/images/ni_fashion/1.jpg"),
+      "Sheets, pillowcases and bedding sets from the Negative Ion Bedding series.",
+    image: asset("/images/ni_fashion/bedding/1.jpeg"),
     video: heroVideo,
     tone: { c1: "#FFC94D", c2: "#FF6B35" },
   },
   {
     slug: "innerwear",
     name: "Innerwear",
-    description: "Sheets, pillowcases and bedding sets from the Negative Ion Bedding series.",
+    description: "Innerwear from the Negative Ion Innerwear series.",
+    image: asset("/images/ni_fashion/innerwear/1.jpeg"),
     tone: { c1: "#B8F0C9", c2: "#1D9E75" },
   },
   {
     slug: "outerwear",
     name: "Outerwear",
     description: "Hats, gloves and scarves that add warmth and finish the look.",
-    image: asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg"),
+    image: asset("/images/ni_fashion/outerwear/1.jpg"),
     tone: { c1: "#FFD3B8", c2: "#FF8F6B" },
   },
   {
     slug: "accessories",
     name: "Accessories",
     description: "Hats, gloves and scarves that add warmth and finish the look.",
-    image: asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg"),
+    image: asset("/images/ni_fashion/accessories/1.jpeg"),
     tone: { c1: "#FFD3B8", c2: "#FF8F6B" },
   },
   {
     slug: "gentlecare",
     name: "Gentle Care",
     description: "Hats, gloves and scarves that add warmth and finish the look.",
-    image: asset("/images/ni_fashion/AS050 Bucket Hat_S$353.jpeg"),
+    image: asset("/images/ni_fashion/gentle_care/1.jpg"),
     tone: { c1: "#FFD3B8", c2: "#FF8F6B" },
   },
 ];
@@ -138,10 +139,11 @@ export const products: Product[] = [
   },
   {
     slug: "bedding-set",
-    name: "Bedding Set",
+    name: "BI017\nHoundstooth Light Blanket",
     category: "bedding",
     description: "A complete bedding set from the Negative Ion Bedding series.",
     details: ["Negative Ion Bedding series", "Replace with sizes, fabric and care details"],
+    images: [asset("/images/ni_fashion/bedding/2.jpeg")],
     sizes: ["Single", "Queen", "King"],
     colors: [{ name: "Cream", hex: "#FBF1DE" }],
     tone: { c1: "#B8F0C9", c2: "#1D9E75" },

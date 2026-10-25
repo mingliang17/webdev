@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: Props) {
             {/* Details */}
             <div className="md:sticky md:top-28 md:self-start">
               <div className="eyebrow">{cat.name}</div>
-              <h1 className="mt-2.5 text-[clamp(32px,4.5vw,52px)]">{p.name}</h1>
+              <h1 className="mt-2.5 text-[clamp(32px,4.5vw,52px)] whitespace-pre-line">{p.name}</h1>
               <p className="price-lg mt-4">{formatPrice(p.price)}</p>
               <p className="body-copy mt-5">{p.description}</p>
 
