@@ -34,18 +34,23 @@ export type ProductColor = { name: string; hex: string };
 export type Product = {
   slug: string;
   name: string;
+  chineseName?: string;
+  chinese_name?: string;
+  id?: string;
   category: string; // Category slug
   price?: number;
-  description: string;
-  details: string[];
+  description?: string;
+  details?: string[];
   sizes: string[];
+  material?: string[];
+  dimensions?: string[];
   colors: ProductColor[];
   images?: string[];
   tone: Tone;
   bestSeller?: boolean;
 };
 
-export const heroVideo = asset("/images/ni_fashion/20261013_AI Images 2_ok.mp4");
+export const heroVideo = asset("/video/ni_fashion/1.mp4");
 
 export const categories: Category[] = [
   {
@@ -147,6 +152,33 @@ export const products: Product[] = [
     sizes: ["Single", "Queen", "King"],
     colors: [{ name: "Cream", hex: "#FBF1DE" }],
     tone: { c1: "#B8F0C9", c2: "#1D9E75" },
+  },
+  {
+    slug: "BI035",
+    name: "Dual Purpose Blanket Cover & Pillowcase x 2",
+    chinese_name: "雙人兩用被套+枕套x2",
+    id: "BI035",
+    category: "bedding",
+    images: [
+      asset("/images/ni_fashion/bedding/BI035/1.jpeg"),
+      asset("/images/ni_fashion/bedding/BI035/2.jpeg"),
+      asset("/images/ni_fashion/bedding/BI035/3.jpeg"),
+      asset("/images/ni_fashion/bedding/BI035/4.jpeg"),
+      asset("/images/ni_fashion/bedding/BI035/5.jpeg"),
+    ],
+    sizes: ["Double Size"],
+    colors: [{ name: "Gray", hex: "#aaaaaa" }, { name: "Champagne Gold", hex: "#F4E1BC" }],
+    tone: { c1: "#B8F0C9", c2: "#1D9E75" },
+    price: 2800,
+    material: [
+      "Outer: 100% polyester",
+      "Inner: 80% polyvinyl chloride, 20% polyester",
+    ],
+    dimensions: [
+      "Double Size: 180cm x 210cm",
+      "Pillowcase: 50cm x 75cm",
+    ],
+    bestSeller: true,
   },
   {
     slug: "pillowcase-pair",

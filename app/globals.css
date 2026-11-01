@@ -137,6 +137,7 @@ body {
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  white-space: pre-line;
 }
 
 h1,

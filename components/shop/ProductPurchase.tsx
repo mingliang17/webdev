@@ -6,17 +6,32 @@ import type { ProductColor } from "@/lib/shop";
 type ProductPurchaseProps = {
   sizes: string[];
   colors: ProductColor[];
+  selectedColorIndex?: number;
+  onColorChange?: (index: number) => void;
 };
 
 /**
  * Size / colour pickers + add-to-bag button.
  * Replace the onClick handler with your cart logic (context, Shopify, Stripe...).
  */
-export default function ProductPurchase({ sizes, colors }: ProductPurchaseProps) {
+export default function ProductPurchase({
+  sizes,
+  colors,
+  selectedColorIndex,
+  onColorChange,
+}: ProductPurchaseProps) {
+  const [internalColorIndex, setInternalColorIndex] = useState(0);
+  const activeColorIndex = selectedColorIndex !== undefined ? selectedColorIndex : internalColorIndex;
+  const activeColorName = colors[activeColorIndex]?.name ?? "";
+
   const [size, setSize] = useState(sizes.length === 1 ? sizes[0] : "");
-  const [color, setColor] = useState(colors[0]?.name ?? "");
   const [added, setAdded] = useState(false);
   const [error, setError] = useState(false);
+
+  const handleColorClick = (idx: number) => {
+    setInternalColorIndex(idx);
+    onColorChange?.(idx);
+  };
 
   const handleAdd = () => {
     if (!size) {
@@ -32,16 +47,16 @@ export default function ProductPurchase({ sizes, colors }: ProductPurchaseProps)
     <div className="mt-8 space-y-7">
       {colors.length > 0 && (
         <div>
-          <span className="field-label">Colour: {color}</span>
+          <span className="field-label">Colour: {activeColorName}</span>
           <div className="flex gap-3">
-            {colors.map((c) => (
+            {colors.map((c, i) => (
               <button
                 key={c.name}
                 type="button"
                 aria-label={c.name}
-                aria-pressed={color === c.name}
-                onClick={() => setColor(c.name)}
-                className={`swatch ${color === c.name ? "swatch-active" : ""}`}
+                aria-pressed={activeColorIndex === i}
+                onClick={() => handleColorClick(i)}
+                className={`swatch ${activeColorIndex === i ? "swatch-active" : ""}`}
                 style={{ background: c.hex }}
               />
             ))}

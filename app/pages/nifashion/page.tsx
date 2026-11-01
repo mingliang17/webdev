@@ -26,9 +26,9 @@ const content = {
     "Negative Ion Clothing and Bedding Series. Browse clothing, bedding and accessories.",
   hero: {
     eyebrow: "Negative Ion Clothing and Bedding Series",
-    title: "Style · Elegance · You",
+    title: "Style · Elegance",
     body: "负离子衣物和寝具系列 — everyday pieces in breathable fabrics, made to be worn on repeat.",
-    image: asset("/images/ni_fashion/2.jpeg") as string | undefined,
+    image: asset("/images/ni_fashion/bedding/BI035/1.jpeg") as string | undefined,
     cta: { label: "Shop all categories", href: `${SHOP_BASE}#categories` },
   },
   video: {
@@ -75,6 +75,7 @@ export default function ShopHome() {
             src={content.video.src}
             poster={content.video.poster}
             title={content.video.title}
+            className="mx-auto w-[400px] h-[600px]"
           />
         </div>
       </section>
